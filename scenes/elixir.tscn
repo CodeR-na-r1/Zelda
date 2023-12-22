@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnkauilqtdbys"]
+
+[ext_resource type="Script" path="res://code/elixir.gd" id="1_1x0tu"]
+[ext_resource type="Texture2D" uid="uid://b2qn685prihpj" path="res://assets/collectibles/elixir.png" id="2_giq8b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s43vw"]
+size = Vector2(29, 63)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_1x0tu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_giq8b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_s43vw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://y815wbj6pt4x"]
+[gd_scene load_steps=22 format=3 uid="uid://y815wbj6pt4x"]
 
 [ext_resource type="Texture2D" uid="uid://72y600ipbawd" path="res://assets/tiles/grass.png" id="1_h5oux"]
 [ext_resource type="PackedScene" uid="uid://x06ua8ly33gs" path="res://scenes/player.tscn" id="2_g16g0"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://chk8pahnhecrr" path="res://scenes/enemy_1.tscn" id="9_v7fjx"]
 [ext_resource type="PackedScene" uid="uid://dddx7t5ca5adq" path="res://scenes/enemy_2.tscn" id="10_knux5"]
 [ext_resource type="PackedScene" uid="uid://dqr45cco51meh" path="res://scenes/enemy_3.tscn" id="11_eryuk"]
+[ext_resource type="PackedScene" uid="uid://b1q2nnwxiwlrg" path="res://scenes/shield.tscn" id="12_uilh4"]
+[ext_resource type="PackedScene" uid="uid://cnkauilqtdbys" path="res://scenes/elixir.tscn" id="13_e6fw7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hvbox"]
 texture = ExtResource("1_h5oux")
@@ -385,3 +387,9 @@ position = Vector2(926, 541)
 
 [node name="Enemy3" parent="." instance=ExtResource("11_eryuk")]
 position = Vector2(1726, 533)
+
+[node name="Shield" parent="." instance=ExtResource("12_uilh4")]
+position = Vector2(199, 720)
+
+[node name="Elixir" parent="." instance=ExtResource("13_e6fw7")]
+position = Vector2(569, 837)

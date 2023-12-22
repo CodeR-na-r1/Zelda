@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://x06ua8ly33gs"]
+[gd_scene load_steps=36 format=3 uid="uid://x06ua8ly33gs"]
 
 [ext_resource type="Texture2D" uid="uid://c4eqdx5u4np47" path="res://assets/characters/player/attack.png" id="1_aj82s"]
 [ext_resource type="Texture2D" uid="uid://c2nkxqej6bq65" path="res://assets/characters/player/idle.png" id="1_i1htc"]
 [ext_resource type="Texture2D" uid="uid://bbeqbkrkexuaa" path="res://assets/characters/player/death.png" id="2_d14sd"]
 [ext_resource type="Texture2D" uid="uid://dqf1af343k7jf" path="res://assets/characters/player/idle1.png" id="4_p1lhe"]
 [ext_resource type="Texture2D" uid="uid://7yktmjcy8eny" path="res://assets/characters/player/move.png" id="4_wdbys"]
+[ext_resource type="Texture2D" uid="uid://chxn102nq75qc" path="res://assets/characters/player/shield.png" id="6_5tfdy"]
 
 [sub_resource type="GDScript" id="GDScript_3remy"]
 script/source = "extends CharacterBody2D
@@ -12,6 +13,11 @@ script/source = "extends CharacterBody2D
 var health	# init in _ready function
 var isDead = false
 @onready var healthBar = $HealthBar
+
+var isShield	# init in _ready function
+var timerShield = 0.0
+var shieldDuration = 3 	# seconds
+@onready var shield = $shield
 
 const SPEED = 300.0
 var currentSpeed = SPEED
@@ -25,14 +31,19 @@ var enemy_in_range = false
 @onready var animatedSprite = $AnimatedSprite2D
 
 func _ready():
+	Signals.connect(\"playerCollectShield\", Callable(self, \"_onPlayerShieldCollect\"))
+	Signals.connect(\"playerCollectElixir\", Callable(self, \"_onPlayerElixirCollect\"))
 	health = healthBar.max_value
+	isShield = false
 	add_to_group(\"Player\")
 
 func _physics_process(delta):
 	
 	update_health()
 	die()
+	
 	update_animation()
+	check_shield()
 	
 	move_and_slide()
 		
@@ -82,6 +93,22 @@ func die():
 		health = 0
 		isDead = true
 		animatedSprite.play(\"death\")
+
+func check_shield():
+	shield.visible = isShield
+	if isShield:
+		shield.rotate(1)
+		if Time.get_unix_time_from_system() -  timerShield > shieldDuration:
+			isShield = false
+
+func _onPlayerShieldCollect():
+	isShield = true
+	timerShield = Time.get_unix_time_from_system()
+
+func _onPlayerElixirCollect():
+	health += 30
+	if health > healthBar.max_value:
+		health = healthBar.max_value
 
 func _on_hitbox_body_entered(body):
 	if body.is_in_group(\"Enemy\"):
@@ -354,6 +381,11 @@ offset_bottom = -37.0
 max_value = 300.0
 fill_mode = 1
 show_percentage = false
+
+[node name="shield" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(1.74219, 1.74219)
+texture = ExtResource("6_5tfdy")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
