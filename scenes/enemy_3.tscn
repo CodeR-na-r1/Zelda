@@ -210,6 +210,16 @@ shape = SubResource("CircleShape2D_qkex2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_xo801")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = -22.0
+offset_top = -40.0
+offset_right = 22.0
+offset_bottom = -35.0
+max_value = 120.0
+fill_mode = 1
+show_percentage = false
+
 [connection signal="body_entered" from="hitbox_enemy3" to="." method="_on_hitbox_enemy_3_body_entered"]
 [connection signal="body_exited" from="hitbox_enemy3" to="." method="_on_hitbox_enemy_3_body_exited"]
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]

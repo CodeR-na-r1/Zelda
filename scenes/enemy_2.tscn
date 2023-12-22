@@ -210,6 +210,16 @@ shape = SubResource("CircleShape2D_qq0hd")
 scale = Vector2(1.765, 1.765)
 shape = SubResource("CircleShape2D_nkppv")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = -20.0
+offset_top = -46.0
+offset_right = 19.0
+offset_bottom = -37.0
+max_value = 60.0
+fill_mode = 1
+show_percentage = false
+
 [connection signal="body_entered" from="hitbox_enemy2" to="." method="_on_hitbox_enemy_2_body_entered"]
 [connection signal="body_exited" from="hitbox_enemy2" to="." method="_on_hitbox_enemy_2_body_exited"]
 [connection signal="body_entered" from="territory" to="." method="_on_territory_body_entered"]

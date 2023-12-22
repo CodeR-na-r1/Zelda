@@ -9,6 +9,10 @@
 [sub_resource type="GDScript" id="GDScript_3remy"]
 script/source = "extends CharacterBody2D
 
+var health = 100
+var isDead = false
+@onready var healthBar = $ProgressBar
+
 const SPEED = 300.0
 var currentSpeed = SPEED
 
@@ -24,6 +28,16 @@ func _ready():
 	add_to_group(\"Player\")
 
 func _physics_process(delta):
+	
+	update_health()
+	die()
+	update_animation()
+	
+	move_and_slide()
+		
+func update_animation():
+	if isDead:
+		return
 	
 	animatedSprite.flip_h = false
 	animatedSprite.flip_v = false
@@ -58,8 +72,15 @@ func _physics_process(delta):
 			if lastDirection.y < 0:
 				animatedSprite.flip_v = true
 
-	move_and_slide()
+func update_health():
+	healthBar.value = health
+	healthBar.visible = health < 100
 
+func die():
+	if health <= 0 and not isDead:
+		health = 0
+		isDead = true
+		animatedSprite.play(\"death\")
 
 func _on_hitbox_body_entered(body):
 	if body.is_in_group(\"Enemy\"):
@@ -70,6 +91,11 @@ func _on_hitbox_body_exited(body):
 	if body.is_in_group(\"Enemy\"):
 		enemy_in_range = false
 		print(\"Getting Swooped!\")
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if animatedSprite.animation == \"death\":
+		queue_free()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nsum"]
@@ -305,9 +331,8 @@ script = SubResource("GDScript_3remy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_atnw3")
-animation = &"idle_right"
+animation = &"death"
 autoplay = "idle_down"
-frame_progress = 0.997694
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
@@ -319,5 +344,15 @@ shape = SubResource("CapsuleShape2D_edujq")
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_w3m18")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0, 1, 0, 1)
+offset_left = -30.0
+offset_top = -44.0
+offset_right = 30.0
+offset_bottom = -37.0
+fill_mode = 1
+show_percentage = false
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
