@@ -152,7 +152,7 @@ func _on_hitbox_body_exited(body):
 
 func _on_animated_sprite_2d_animation_finished():
 	if animatedSprite.animation == \"death\":
-		queue_free()
+		get_tree().change_scene_to_file(\"res://scenes/gameover.tscn\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nsum"]
@@ -407,7 +407,6 @@ offset_left = -30.0
 offset_top = -44.0
 offset_right = 30.0
 offset_bottom = -37.0
-max_value = 300.0
 fill_mode = 1
 show_percentage = false
 

@@ -9,7 +9,8 @@ func _ready():
 	Signals.connect("playerAttack", Callable(self, "_playerAttack"))
 
 func _process(delta):
-	pass
+	if not get_tree().get_nodes_in_group("Enemy").size():
+		get_tree().change_scene_to_file("res://scenes/win_menu.tscn")
 
 func _playerAttack():
 	var magicAttackTemp = magicAttack.instantiate()

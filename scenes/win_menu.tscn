@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://b03pkad5fegsa"]
+
+[ext_resource type="Texture2D" uid="uid://c3wjt111hvkl5" path="res://assets/ui/menu/win.png" id="1_bfbyp"]
+[ext_resource type="Script" path="res://code/win_menu.gd" id="1_m37ra"]
+[ext_resource type="Texture2D" uid="uid://v4885lmauyr8" path="res://assets/ui/menu/yes(нав).png" id="2_ksaiq"]
+[ext_resource type="Texture2D" uid="uid://73c0apqlfjek" path="res://assets/ui/menu/фон.png" id="2_uxapx"]
+[ext_resource type="Texture2D" uid="uid://cgghc6s5yeblh" path="res://assets/ui/menu/yes(об).png" id="3_fc20t"]
+[ext_resource type="Texture2D" uid="uid://78lpvwbw8a1h" path="res://assets/ui/menu/no(нав).png" id="4_rnyq3"]
+[ext_resource type="Texture2D" uid="uid://bjfapche7rknu" path="res://assets/ui/menu/no(об).png" id="5_rv3i1"]
+[ext_resource type="AudioStream" uid="uid://qpfuo74lsc76" path="res://assets/Audio/выигрыша.mp3" id="8_ywld1"]
+
+[node name="WinMenu" type="CanvasLayer"]
+script = ExtResource("1_m37ra")
+
+[node name="Фон" type="Sprite2D" parent="."]
+position = Vector2(1059, 538)
+scale = Vector2(1.7625, 1.8)
+texture = ExtResource("2_uxapx")
+
+[node name="Win" type="Sprite2D" parent="."]
+position = Vector2(960, 492)
+texture = ExtResource("1_bfbyp")
+
+[node name="PlayYes" type="TextureButton" parent="Win"]
+anchors_preset = -1
+anchor_left = -1.05
+anchor_top = -0.778
+anchor_right = 2.047
+anchor_bottom = 2.04
+offset_left = 452.85
+offset_top = 354.084
+offset_right = -1327.0
+offset_bottom = -639.12
+texture_normal = ExtResource("3_fc20t")
+texture_hover = ExtResource("2_ksaiq")
+
+[node name="PlayNo" type="TextureButton" parent="Win"]
+anchors_preset = -1
+anchor_left = -1.04
+anchor_top = -0.778
+anchor_right = 2.057
+anchor_bottom = 2.04
+offset_left = 690.68
+offset_top = 355.084
+offset_right = -1089.17
+offset_bottom = -638.12
+texture_normal = ExtResource("5_rv3i1")
+texture_hover = ExtResource("4_rnyq3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ywld1")
+autoplay = true
+
+[connection signal="pressed" from="Win/PlayYes" to="." method="_on_play_yes_pressed"]
+[connection signal="pressed" from="Win/PlayNo" to="." method="_on_play_no_pressed"]

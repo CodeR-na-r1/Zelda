@@ -8,6 +8,7 @@ var target = null
 
 var SPEED = 4
 var direction = null
+var lastAngle = 0
 
 func _ready():
 	hasTarget = false
@@ -19,6 +20,10 @@ func _process(delta):
 	
 	if hasTarget:
 		direction = (target.position - position).normalized()
+		self.rotate(-lastAngle)
+		var angle = rad_to_deg(atan2(direction.x, direction.y))
+		self.rotate(angle)
+		lastAngle = angle
 
 	self.position.x += SPEED *direction.x
 	self.position.y += SPEED *direction.y
