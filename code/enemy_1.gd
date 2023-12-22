@@ -9,7 +9,7 @@ var swoop_speed = 75
 
 var last_direction = Vector2.ZERO
 
-var animated_sprite	# init in _ready function
+@onready var animated_sprite = $AnimatedSprite2D
 
 var direction_change_timer = 0
 var direction_change_interval = 3
@@ -22,7 +22,7 @@ var min_position = Vector2(0,0)
 var max_position = Vector2(800, 430)
 
 func _ready():
-	animated_sprite = $AnimatedSprite2D
+	#animated_sprite = $AnimatedSprite2D
 	health = healthBar.max_value
 	pick_random_direction()
 	add_to_group("Enemy")
@@ -86,10 +86,10 @@ func update_health():
 
 func die():
 	if health <= 0 and not isDead:
+		animated_sprite.play("death")
 		health = 0
 		isDead = true
-		animated_sprite.play("die")
-		animated_sprite.animation_finished
+		#await animated_sprite.animation_finished
 		queue_free()
 		
 func _on_territoty_body_entered(body):

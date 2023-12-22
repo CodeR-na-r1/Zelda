@@ -10,6 +10,10 @@
 [sub_resource type="GDScript" id="GDScript_3remy"]
 script/source = "extends CharacterBody2D
 
+var isSuperAttack = false
+var timerSuperAttack = 0.0
+var superAttackDuration = 3 	# seconds
+
 var health	# init in _ready function
 var isDead = false
 @onready var healthBar = $HealthBar
@@ -31,8 +35,12 @@ var enemy_in_range = false
 @onready var animatedSprite = $AnimatedSprite2D
 
 func _ready():
+	Vars.magicCounter = 0
+	
+	Signals.connect(\"playerCollectBonusSuperAttack\", Callable(self, \"_playerCollectBonusSuperAttack\"))
 	Signals.connect(\"playerCollectShield\", Callable(self, \"_onPlayerShieldCollect\"))
 	Signals.connect(\"playerCollectElixir\", Callable(self, \"_onPlayerElixirCollect\"))
+	
 	health = healthBar.max_value
 	isShield = false
 	add_to_group(\"Player\")
@@ -44,6 +52,8 @@ func _physics_process(delta):
 	
 	update_animation()
 	check_shield()
+	check_superAttack()
+	check_attack()
 	
 	move_and_slide()
 		
@@ -94,13 +104,32 @@ func die():
 		isDead = true
 		animatedSprite.play(\"death\")
 
+func check_superAttack():
+	if isSuperAttack:
+		if Time.get_unix_time_from_system() -  timerSuperAttack > superAttackDuration:
+			isSuperAttack = false
+			
 func check_shield():
 	shield.visible = isShield
 	if isShield:
-		shield.rotate(1)
+		shield.rotate(0.1)
 		if Time.get_unix_time_from_system() -  timerShield > shieldDuration:
 			isShield = false
 
+func check_attack():
+	
+	if Input.is_action_just_pressed(\"attack\"):
+		if Vars.magicCounter < Vars.maxMagicCounter:
+			
+			Vars.magicCounter += 1
+			
+			print(\"emit -> playerAttack\")
+			Signals.emit_signal(\"playerAttack\")
+
+func _playerCollectBonusSuperAttack():
+	isSuperAttack = true
+	timerSuperAttack = Time.get_unix_time_from_system()
+	
 func _onPlayerShieldCollect():
 	isShield = true
 	timerShield = Time.get_unix_time_from_system()
@@ -109,7 +138,7 @@ func _onPlayerElixirCollect():
 	health += 30
 	if health > healthBar.max_value:
 		health = healthBar.max_value
-
+		
 func _on_hitbox_body_entered(body):
 	if body.is_in_group(\"Enemy\"):
 		enemy_in_range = true

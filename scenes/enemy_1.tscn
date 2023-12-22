@@ -21,15 +21,15 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("1_fhb1y")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fn5ss"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyxue"]
 atlas = ExtResource("2_752sl")
 region = Rect2(0, 0, 81, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fpk61"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu23y"]
 atlas = ExtResource("2_752sl")
 region = Rect2(81, 0, 81, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n01s5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vggwd"]
 atlas = ExtResource("2_752sl")
 region = Rect2(162, 0, 81, 64)
 
@@ -102,16 +102,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fn5ss")
+"texture": SubResource("AtlasTexture_vyxue")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fpk61")
+"texture": SubResource("AtlasTexture_eu23y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n01s5")
+"texture": SubResource("AtlasTexture_vggwd")
 }],
-"loop": true,
-"name": &"die",
+"loop": false,
+"name": &"death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -190,7 +190,7 @@ script = ExtResource("1_tu0p4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rpqku")
-animation = &"attack"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 1)

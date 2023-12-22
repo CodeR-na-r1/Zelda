@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://y815wbj6pt4x"]
+[gd_scene load_steps=24 format=3 uid="uid://y815wbj6pt4x"]
 
 [ext_resource type="Texture2D" uid="uid://72y600ipbawd" path="res://assets/tiles/grass.png" id="1_h5oux"]
+[ext_resource type="Script" path="res://code/level.gd" id="1_ywm3l"]
 [ext_resource type="PackedScene" uid="uid://x06ua8ly33gs" path="res://scenes/player.tscn" id="2_g16g0"]
 [ext_resource type="Texture2D" uid="uid://qmejinnu6a5r" path="res://assets/tiles/sand.png" id="2_idtib"]
 [ext_resource type="Texture2D" uid="uid://tc3qib0tr3bx" path="res://assets/tiles/see.png" id="3_ckix3"]
@@ -13,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dqr45cco51meh" path="res://scenes/enemy_3.tscn" id="11_eryuk"]
 [ext_resource type="PackedScene" uid="uid://b1q2nnwxiwlrg" path="res://scenes/shield.tscn" id="12_uilh4"]
 [ext_resource type="PackedScene" uid="uid://cnkauilqtdbys" path="res://scenes/elixir.tscn" id="13_e6fw7"]
+[ext_resource type="PackedScene" uid="uid://ok5vhsevhci4" path="res://scenes/bonusSuperAttack.tscn" id="15_ixk0c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hvbox"]
 texture = ExtResource("1_h5oux")
@@ -339,6 +341,7 @@ sources/11 = SubResource("TileSetAtlasSource_hx4bo")
 sources/3 = SubResource("TileSetAtlasSource_870ec")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_ywm3l")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -393,3 +396,12 @@ position = Vector2(199, 720)
 
 [node name="Elixir" parent="." instance=ExtResource("13_e6fw7")]
 position = Vector2(569, 837)
+
+[node name="bonusUltraAttack" parent="." instance=ExtResource("15_ixk0c")]
+position = Vector2(360, 646)
+
+[node name="bonusUltraAttack2" parent="." instance=ExtResource("15_ixk0c")]
+position = Vector2(2278, 914)
+
+[node name="bonusUltraAttack3" parent="." instance=ExtResource("15_ixk0c")]
+position = Vector2(1561, 901)

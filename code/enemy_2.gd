@@ -86,10 +86,10 @@ func update_health():
 
 func die():
 	if health <= 0 and not isDead:
+		animated_sprite.play("death")
 		health = 0
 		isDead = true
-		animated_sprite.play("die")
-		animated_sprite.animation_finished
+		#await animated_sprite.animation_finished
 		queue_free()
 		
 func _on_territory_body_entered(body):

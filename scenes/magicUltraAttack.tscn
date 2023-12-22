@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://code/magicUltraAttack.gd" id="1_2mon5"]
 [ext_resource type="Texture2D" uid="uid://bslvjtjgsf8vm" path="res://assets/characters/player/damagUltra.png" id="1_d4wvt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lalev"]
-size = Vector2(37, 36)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2lvq"]
+size = Vector2(422, 520)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7snao"]
 atlas = ExtResource("1_d4wvt")
@@ -28,25 +28,42 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2lvq"]
-size = Vector2(810, 618)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lalev"]
+size = Vector2(36, 32)
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_2mon5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1.5, 2)
-shape = SubResource("RectangleShape2D_lalev")
+[node name="detector" type="Area2D" parent="."]
+light_mask = 0
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector"]
+light_mask = 2
+visibility_layer = 2
+y_sort_enabled = true
+position = Vector2(192, -1)
+shape = SubResource("RectangleShape2D_q2lvq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.11426, 0.884332)
 sprite_frames = SubResource("SpriteFrames_j3wtg")
 animation = &"fly"
 autoplay = "fly"
 frame = 1
 frame_progress = 0.372313
 
-[node name="detector" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 2
+y_sort_enabled = true
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_lalev")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detector"]
-position = Vector2(384, 0)
-shape = SubResource("RectangleShape2D_q2lvq")
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="detector" to="." method="_on_detector_body_entered"]
+[connection signal="body_exited" from="detector" to="." method="_on_detector_body_exited"]

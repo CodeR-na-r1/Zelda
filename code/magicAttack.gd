@@ -1,11 +1,30 @@
 extends Area2D
 
+var lifeTimeTimer	# init in _ready function
+var LIFETIME = 1.5 # seconds
 
-# Called when the node enters the scene tree for the first time.
+var SPEED = 3
+var direction = null
+
 func _ready():
-	pass # Replace with function body.
+	lifeTimeTimer = Time.get_unix_time_from_system()
+	if direction == null:
+		direction = Vector2(1, 0)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	
+	self.position.x += SPEED *direction.x
+	self.position.y += SPEED *direction.y
+	
+	if Time.get_unix_time_from_system() - lifeTimeTimer > LIFETIME:
+		kill()
+
+func _on_body_entered(body):
+	print("here")
+	if body.is_in_group("Enemy"):
+		body.health -= 15
+		kill()
+		
+func kill():
+		Vars.magicCounter -= 1
+		queue_free()
