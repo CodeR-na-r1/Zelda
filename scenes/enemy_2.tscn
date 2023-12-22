@@ -210,7 +210,7 @@ shape = SubResource("CircleShape2D_qq0hd")
 scale = Vector2(1.765, 1.765)
 shape = SubResource("CircleShape2D_nkppv")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(1, 0, 0, 1)
 offset_left = -20.0
 offset_top = -46.0

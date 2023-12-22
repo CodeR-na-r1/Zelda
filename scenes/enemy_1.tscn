@@ -5,21 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://cc7vnp83db7mj" path="res://assets/characters/Enemy1/die.png" id="2_752sl"]
 [ext_resource type="Texture2D" uid="uid://bwok3ube6jvvw" path="res://assets/characters/Enemy1/move.png" id="3_kr64o"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gp285"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x74pg"]
 atlas = ExtResource("1_fhb1y")
-region = Rect2(0, 0, 63, 64)
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l2bi1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_li3jj"]
 atlas = ExtResource("1_fhb1y")
-region = Rect2(63, 0, 63, 64)
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6jwbm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cadek"]
 atlas = ExtResource("1_fhb1y")
-region = Rect2(126, 0, 63, 64)
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ib21"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymg80"]
 atlas = ExtResource("1_fhb1y")
-region = Rect2(189, 0, 63, 64)
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fn5ss"]
 atlas = ExtResource("2_752sl")
@@ -85,16 +85,16 @@ region = Rect2(128, 192, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gp285")
+"texture": SubResource("AtlasTexture_x74pg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l2bi1")
+"texture": SubResource("AtlasTexture_li3jj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6jwbm")
+"texture": SubResource("AtlasTexture_cadek")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7ib21")
+"texture": SubResource("AtlasTexture_ymg80")
 }],
 "loop": true,
 "name": &"attack",
@@ -190,7 +190,7 @@ script = ExtResource("1_tu0p4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rpqku")
-animation = &"die"
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 1)
@@ -207,7 +207,7 @@ shape = SubResource("CircleShape2D_14xte")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_xtc01")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(1, 0, 0, 1)
 offset_left = -16.0
 offset_top = -41.0

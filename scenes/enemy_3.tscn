@@ -193,7 +193,7 @@ script = ExtResource("1_wpksc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jgkif")
-animation = &"attack"
+animation = &"go_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -210,7 +210,7 @@ shape = SubResource("CircleShape2D_qkex2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="territory"]
 shape = SubResource("CircleShape2D_xo801")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(1, 0, 0, 1)
 offset_left = -22.0
 offset_top = -40.0

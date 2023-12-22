@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var health	# init in _ready function
 var isDead = false
-@onready var healthBar = $ProgressBar
+@onready var healthBar = $HealthBar
 
 var speed = 50
 var swoop_speed = 75
@@ -83,7 +83,6 @@ func pick_random_direction():
 
 func update_health():
 	healthBar.value = health
-	healthBar.visible = health < 100
 
 func die():
 	if health <= 0 and not isDead:

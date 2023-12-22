@@ -1,34 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://chd522dn2p0p"]
-
-[ext_resource type="Texture2D" uid="uid://dgqokcok1s842" path="res://assets/characters/player/damag.png" id="1_echg3"]
+[gd_scene load_steps=4 format=3 uid="uid://chd522dn2p0p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5mmu"]
 size = Vector2(30, 15)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eou7x"]
-atlas = ExtResource("1_echg3")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_upjl2"]
-atlas = ExtResource("1_echg3")
-region = Rect2(64, 0, 64, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_0l7yc"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eou7x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_upjl2")
-}],
+"frames": [],
 "loop": true,
 "name": &"fly",
 "speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2wii2"]
-size = Vector2(230, 148)
+size = Vector2(133, 148)
 
 [node name="Area2D" type="Area2D"]
 
@@ -40,11 +24,10 @@ shape = SubResource("RectangleShape2D_n5mmu")
 sprite_frames = SubResource("SpriteFrames_0l7yc")
 animation = &"fly"
 autoplay = "fly"
-frame = 1
 frame_progress = 1.0
 
 [node name="detector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detector"]
-position = Vector2(95, 0)
+position = Vector2(46, 0)
 shape = SubResource("RectangleShape2D_2wii2")

@@ -9,9 +9,9 @@
 [sub_resource type="GDScript" id="GDScript_3remy"]
 script/source = "extends CharacterBody2D
 
-var health = 100
+var health	# init in _ready function
 var isDead = false
-@onready var healthBar = $ProgressBar
+@onready var healthBar = $HealthBar
 
 const SPEED = 300.0
 var currentSpeed = SPEED
@@ -25,6 +25,7 @@ var enemy_in_range = false
 @onready var animatedSprite = $AnimatedSprite2D
 
 func _ready():
+	health = healthBar.max_value
 	add_to_group(\"Player\")
 
 func _physics_process(delta):
@@ -74,7 +75,7 @@ func update_animation():
 
 func update_health():
 	healthBar.value = health
-	healthBar.visible = health < 100
+	healthBar.visible = health < healthBar.max_value
 
 func die():
 	if health <= 0 and not isDead:
@@ -344,12 +345,13 @@ shape = SubResource("CapsuleShape2D_edujq")
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_w3m18")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(0, 1, 0, 1)
 offset_left = -30.0
 offset_top = -44.0
 offset_right = 30.0
 offset_bottom = -37.0
+max_value = 300.0
 fill_mode = 1
 show_percentage = false
 
