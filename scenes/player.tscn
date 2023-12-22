@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://x06ua8ly33gs"]
+[gd_scene load_steps=35 format=3 uid="uid://x06ua8ly33gs"]
 
 [ext_resource type="Texture2D" uid="uid://c4eqdx5u4np47" path="res://assets/characters/player/attack.png" id="1_aj82s"]
 [ext_resource type="Texture2D" uid="uid://c2nkxqej6bq65" path="res://assets/characters/player/idle.png" id="1_i1htc"]
@@ -12,9 +12,16 @@ script/source = "extends CharacterBody2D
 const SPEED = 300.0
 var currentSpeed = SPEED
 
+var animated_spite
+
 var lastDirection = Vector2.ZERO
 
+var enemy_in_range = false
+
 @onready var animatedSprite = $AnimatedSprite2D
+
+func _ready():
+	add_to_group(\"Player\")
 
 func _physics_process(delta):
 	
@@ -52,6 +59,17 @@ func _physics_process(delta):
 				animatedSprite.flip_v = true
 
 	move_and_slide()
+
+
+func _on_hitbox_body_entered(body):
+	if body.is_in_group(\"Enemy\"):
+		enemy_in_range = true
+		print(\"Enemy exited the hitbox!\")
+
+func _on_hitbox_body_exited(body):
+	if body.is_in_group(\"Enemy\"):
+		enemy_in_range = false
+		print(\"Getting Swooped!\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nsum"]
@@ -276,9 +294,13 @@ animations = [{
 radius = 27.0
 height = 54.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_w3m18"]
+radius = 27.0185
+
 [node name="player" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
+collision_mask = 3
 script = SubResource("GDScript_3remy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -290,3 +312,12 @@ frame_progress = 0.997694
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
 shape = SubResource("CapsuleShape2D_edujq")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_w3m18")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="hitbox" to="." method="_on_hitbox_body_exited"]
