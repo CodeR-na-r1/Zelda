@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://x06ua8ly33gs"]
+[gd_scene load_steps=37 format=3 uid="uid://x06ua8ly33gs"]
 
 [ext_resource type="Texture2D" uid="uid://c4eqdx5u4np47" path="res://assets/characters/player/attack.png" id="1_aj82s"]
 [ext_resource type="Texture2D" uid="uid://c2nkxqej6bq65" path="res://assets/characters/player/idle.png" id="1_i1htc"]
@@ -6,9 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://dqf1af343k7jf" path="res://assets/characters/player/idle1.png" id="4_p1lhe"]
 [ext_resource type="Texture2D" uid="uid://7yktmjcy8eny" path="res://assets/characters/player/move.png" id="4_wdbys"]
 [ext_resource type="Texture2D" uid="uid://chxn102nq75qc" path="res://assets/characters/player/shield.png" id="6_5tfdy"]
+[ext_resource type="AudioStream" uid="uid://bchivlfise88h" path="res://assets/Audio/удар.mp3" id="7_so81a"]
 
 [sub_resource type="GDScript" id="GDScript_3remy"]
 script/source = "extends CharacterBody2D
+
+@onready var attack_sound = $attackSound
 
 var isSuperAttack = false
 var timerSuperAttack = 0.0
@@ -127,6 +130,9 @@ func check_attack():
 			
 			print(\"emit -> playerAttack\")
 			Signals.emit_signal(\"playerAttack\")
+			
+			attack_sound.play()
+			await attack_sound.finished
 
 func _playerCollectBonusSuperAttack():
 	isSuperAttack = true
@@ -420,6 +426,10 @@ show_percentage = false
 position = Vector2(0, 1)
 scale = Vector2(1.74219, 1.74219)
 texture = ExtResource("6_5tfdy")
+
+[node name="attackSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-30, -44)
+stream = ExtResource("7_so81a")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
