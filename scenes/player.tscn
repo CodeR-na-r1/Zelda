@@ -41,6 +41,8 @@ func _ready():
 	Signals.connect(\"playerCollectShield\", Callable(self, \"_onPlayerShieldCollect\"))
 	Signals.connect(\"playerCollectElixir\", Callable(self, \"_onPlayerElixirCollect\"))
 	
+	Signals.connect(\"playerHealthDamaged\", Callable(self, \"_onPlayerHealthDamaged\"))
+	
 	health = healthBar.max_value
 	isShield = false
 	add_to_group(\"Player\")
@@ -138,6 +140,10 @@ func _onPlayerElixirCollect():
 	health += 30
 	if health > healthBar.max_value:
 		health = healthBar.max_value
+
+func _onPlayerHealthDamaged(value: int):
+	if not isShield:
+		health -= value
 		
 func _on_hitbox_body_entered(body):
 	if body.is_in_group(\"Enemy\"):

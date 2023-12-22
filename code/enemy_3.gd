@@ -112,8 +112,8 @@ func _on_hitbox_enemy_3_body_entered(body):
 		animated_sprite.flip_h = position.x > body.position.x
 		swoop_speed = 0
 		health -= 20
-		body.health -= 20
-
+		print("emit -> playerHealthDamaged 50")
+		Signals.emit_signal("playerHealthDamaged", 50)
 
 func _on_hitbox_enemy_3_body_exited(body):
 	if body.is_in_group("Player"):
