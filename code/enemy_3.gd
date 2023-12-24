@@ -32,6 +32,9 @@ func _physics_process(delta):
 	update_health()
 	die()
 	
+	if isDead:
+		return
+	
 	if swoop:
 		var direction_to_player = (player.position - position).normalized() 
 		velocity = direction_to_player * swoop_speed
@@ -89,7 +92,7 @@ func die():
 		animated_sprite.play("death")
 		health = 0
 		isDead = true
-		#await animated_sprite.animation_finished
+		await animated_sprite.animation_finished
 		queue_free()
 		
 func _on_territory_body_entered(body):

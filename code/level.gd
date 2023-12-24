@@ -5,9 +5,12 @@ var magicUltraAttack = preload("res://scenes/magicUltraAttack.tscn")
 
 @onready var player = $TileMap/player
 
+@onready var audio_stream_player_2d = $AudioStreamPlayer2D
+
 @onready var camera = $TileMap/player/Camera2D
 
 func _ready():
+	audio_stream_player_2d.play()
 	Signals.connect("playerAttack", Callable(self, "_playerAttack"))
 	
 	#set-up area for enemy
@@ -25,12 +28,10 @@ func _ready():
 	
 	$Enemy6.min_position = Vector2(1600, -1250)
 	$Enemy6.max_position = Vector2(2600, -750)
-	
-	$Enemy7.min_position = Vector2(250, -750)
-	$Enemy7.max_position = Vector2(1000, -250)
 
 func _process(delta):
 	print(get_tree().get_nodes_in_group("Enemy").size())
+	audio_stream_player_2d.position = player.position
 	if not get_tree().get_nodes_in_group("Enemy").size():
 		get_tree().change_scene_to_file("res://scenes/win_menu.tscn")
 
